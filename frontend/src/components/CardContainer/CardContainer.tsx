@@ -23,7 +23,7 @@ const CardContainer = () => {
   ]);
 
   return (
-    <div className="card-container">
+    <div className="card-container" style={{ columns: 4 }}>
       {cards.map((card) => (
         <div key={card.id} className="card">
           <img className="rounded-md" key={card.id} src={card.imageUrl} />

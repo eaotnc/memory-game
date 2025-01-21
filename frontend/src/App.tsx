@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <div className="text-2xl">Memory Matching Game</div>
+      <div className="text-2xl ">Memory Matching Game</div>
       <CardContainer />
     </>
   );
