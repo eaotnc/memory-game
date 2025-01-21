@@ -10,19 +10,18 @@ interface CardProps {
 }
 
 const Card = ({ id, imageUrl, index }: CardProps) => {
-  const { addTotalClick, faceUpCardKeys, pairedCardKeys, handleGameLogic } =
+  const { addTotalClick, faceUpCards, pairedCards, handleGameLogic } =
     useGameInfo();
   const [isFlipped, setIsFlipped] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("🚀 ~ faceUpCardKeys:", faceUpCardKeys);
-
-    if (faceUpCardKeys.includes(index) && !pairedCardKeys.includes(index)) {
+    const isCardFaceUp = faceUpCards.some((card) => card.index === index);
+    if (isCardFaceUp) {
       setIsFlipped(true);
     } else {
       setIsFlipped(false);
     }
-  }, [faceUpCardKeys]);
+  }, [faceUpCards]);
 
   const handleClick = () => {
     addTotalClick();
