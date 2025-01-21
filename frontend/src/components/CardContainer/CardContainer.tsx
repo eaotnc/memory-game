@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card } from "../../interfaces";
 import "./CardContainer.css";
+import ReactCardFlip from "react-card-flip";
 
 const CardContainer = () => {
   const [cards, setCards] = useState<Card[]>([
@@ -22,14 +23,27 @@ const CardContainer = () => {
     { key: 16, id: 8, imageUrl: "https://picsum.photos/id/244/200/300" },
   ]);
 
+  const [isFlipped, setIsFlipped] = useState<boolean>(false);
+
   return (
-    <div className="card-container" style={{ columns: 4 }}>
-      {cards.map((card) => (
-        <div key={card.id} className="card">
-          <img className="rounded-md" key={card.id} src={card.imageUrl} />
-        </div>
-      ))}
-    </div>
+    <>
+      <div className="card-container" style={{ columns: 4 }}>
+        {cards.map((card) => (
+          <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+            <div className="card" onClick={() => setIsFlipped(true)}>
+              Flip
+            </div>
+            <div
+              onClick={() => setIsFlipped(false)}
+              key={card.id}
+              className="card"
+            >
+              <img className="rounded-md" key={card.id} src={card.imageUrl} />
+            </div>
+          </ReactCardFlip>
+        ))}
+      </div>
+    </>
   );
 };
 
