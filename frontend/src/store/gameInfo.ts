@@ -34,16 +34,6 @@ interface PairedCardType {
   id: number;
 }
 
-interface GameInfoState {
-  cards: CardType[];
-  totalClicks: number;
-  faceUpCards: FaceUpCardType[];
-  pairedCards: PairedCardType[];
-  addTotalClick: () => void;
-  clearTotalClick: () => void;
-  handleGameLogic: (key: number, id: number) => void;
-}
-
 interface HandleGameLogicReducerType {
   state: GameInfoState;
   index: number;
@@ -80,6 +70,17 @@ const handleGameLogicReducer = ({
   }
 };
 
+interface GameInfoState {
+  cards: CardType[];
+  totalClicks: number;
+  faceUpCards: FaceUpCardType[];
+  pairedCards: PairedCardType[];
+  addTotalClick: () => void;
+  clearTotalClick: () => void;
+  handleGameLogic: (key: number, id: number) => void;
+  setRestart: () => void;
+}
+
 const useGameInfo = create<GameInfoState>((set) => ({
   cards: cards,
   totalClicks: 0,
@@ -98,6 +99,14 @@ const useGameInfo = create<GameInfoState>((set) => ({
 
   handleGameLogic: (index: number, id: number) => {
     set((state) => handleGameLogicReducer({ state, index, id }));
+  },
+
+  setRestart: () => {
+    set(() => ({
+      totalClicks: 0,
+      faceUpCards: [],
+      pairedCards: [],
+    }));
   },
 }));
 
