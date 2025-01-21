@@ -56,13 +56,18 @@ const handleGameLogicReducer = ({
   id,
 }: HandleGameLogicReducerType) => {
   const { faceUpCards } = state;
-  console.log("🚀 ~ state:", state);
   switch (faceUpCards.length) {
     case 0:
       return {
         faceUpCards: [...faceUpCards, { index, id }],
       };
     case 1:
+      if (faceUpCards[0].id === id) {
+        return {
+          faceUpCards: [],
+          pairedCards: [...state.pairedCards, ...faceUpCards, { index, id }],
+        };
+      }
       return {
         faceUpCards: [...faceUpCards, { index, id }],
       };

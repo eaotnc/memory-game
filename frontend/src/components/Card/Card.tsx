@@ -13,10 +13,13 @@ const Card = ({ id, imageUrl, index }: CardProps) => {
   const { addTotalClick, faceUpCards, pairedCards, handleGameLogic } =
     useGameInfo();
   const [isFlipped, setIsFlipped] = useState<boolean>(false);
+  const [isCorrect, setIsCorrect] = useState<boolean>(false);
 
   useEffect(() => {
     const isCardFaceUp = faceUpCards.some((card) => card.index === index);
-    if (isCardFaceUp) {
+    const isCardPaired = pairedCards.some((card) => card.index === index);
+    setIsCorrect(isCardPaired);
+    if (isCardFaceUp || isCardPaired) {
       setIsFlipped(true);
     } else {
       setIsFlipped(false);
@@ -33,7 +36,11 @@ const Card = ({ id, imageUrl, index }: CardProps) => {
         <div className="card flex justify-center" onClick={() => handleClick()}>
           <img className="w-8 rounded-md" src={cardIcon} />
         </div>
-        <div key={id} className="card">
+        <div
+          key={id}
+          className="card"
+          style={isCorrect ? { border: "5px solid green" } : {}}
+        >
           <img className="rounded-md" key={id} src={imageUrl} />
         </div>
       </ReactCardFlip>
