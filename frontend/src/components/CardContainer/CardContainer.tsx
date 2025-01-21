@@ -1,9 +1,9 @@
 import "./CardContainer.css";
 import Card from "../Card";
-import useGameInfo from "../../store/gameInfo";
+import useGameController from "../../store/gameInfo";
 
 const CardContainer = () => {
-  const { cards } = useGameInfo();
+  const { cards } = useGameController();
 
   return (
     <>

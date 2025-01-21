@@ -81,7 +81,7 @@ interface GameInfoState {
   setRestart: () => void;
 }
 
-const useGameInfo = create<GameInfoState>((set) => ({
+const useGameController = create<GameInfoState>((set) => ({
   cards: cards,
   totalClicks: 0,
   faceUpCards: [],
@@ -110,4 +110,4 @@ const useGameInfo = create<GameInfoState>((set) => ({
   },
 }));
 
-export default useGameInfo;
+export default useGameController;

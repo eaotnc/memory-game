@@ -1,9 +1,9 @@
 import "./App.css";
 import CardContainer from "./components/CardContainer";
-import useGameInfo from "./store/gameInfo";
+import useGameController from "./store/gameInfo";
 
 function App() {
-  const { totalClicks, setRestart } = useGameInfo();
+  const { totalClicks, setRestart } = useGameController();
 
   return (
     <>

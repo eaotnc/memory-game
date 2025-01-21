@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactCardFlip from "react-card-flip";
 import cardIcon from "../../assets/cardicon.svg";
-import useGameInfo from "../../store/gameInfo";
+import useGameController from "../../store/gameInfo";
 
 interface CardProps {
   id: number;
@@ -11,7 +11,7 @@ interface CardProps {
 
 const Card = ({ id, imageUrl, index }: CardProps) => {
   const { addTotalClick, faceUpCards, pairedCards, handleGameLogic } =
-    useGameInfo();
+    useGameController();
   const [isFlipped, setIsFlipped] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
 
