@@ -1,26 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactCardFlip from "react-card-flip";
 import cardIcon from "../../assets/cardicon.svg";
+import useGameInfo from "../../store/gameInfo";
 
 interface CardProps {
   id: number;
+  index: number;
   imageUrl: string;
 }
 
-const Card = ({ id, imageUrl }: CardProps) => {
+const Card = ({ id, imageUrl, index }: CardProps) => {
+  const { addTotalClick, faceUpCardKeys, pairedCardKeys, handleGameLogic } =
+    useGameInfo();
   const [isFlipped, setIsFlipped] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log("🚀 ~ faceUpCardKeys:", faceUpCardKeys);
+
+    if (faceUpCardKeys.includes(index) && !pairedCardKeys.includes(index)) {
+      setIsFlipped(true);
+    } else {
+      setIsFlipped(false);
+    }
+  }, [faceUpCardKeys]);
+
+  const handleClick = () => {
+    addTotalClick();
+    handleGameLogic(index, id);
+  };
   return (
-    <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-      <div
-        className="card flex justify-center"
-        onClick={() => setIsFlipped(true)}
-      >
-        <img className="w-8 rounded-md" src={cardIcon} />
-      </div>
-      <div key={id} className="card">
-        <img className="rounded-md" key={id} src={imageUrl} />
-      </div>
-    </ReactCardFlip>
+    <div key={index}>
+      <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+        <div className="card flex justify-center" onClick={() => handleClick()}>
+          <img className="w-8 rounded-md" src={cardIcon} />
+        </div>
+        <div key={id} className="card">
+          <img className="rounded-md" key={id} src={imageUrl} />
+        </div>
+      </ReactCardFlip>
+    </div>
   );
 };
 
