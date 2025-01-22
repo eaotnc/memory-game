@@ -16,6 +16,7 @@ const Card = ({ id, imageUrl, index }: CardProps) => {
     pairedCards,
     handleGameLogic,
     setGameStart,
+    removeFaceUpCards,
   } = useGameController();
   const [isFlipped, setIsFlipped] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
@@ -24,12 +25,26 @@ const Card = ({ id, imageUrl, index }: CardProps) => {
     const isCardFaceUp = faceUpCards.some((card) => card.index === index);
     const isCardPaired = pairedCards.some((card) => card.index === index);
     setIsCorrect(isCardPaired);
+
     if (isCardFaceUp || isCardPaired) {
       setIsFlipped(true);
+      if (isCardFaceUp && !isCorrect) {
+        setTimeout(() => {
+          removeFaceUpCards(index);
+        }, 2000);
+      }
     } else {
       setIsFlipped(false);
     }
   }, [faceUpCards]);
+
+  // useEffect(() => {
+  //   const isCardPaired = pairedCards.some((card) => card.index === index);
+  //   setIsCorrect(isCardPaired);
+  //   if (isCardPaired) {
+  //     setIsFlipped(true);
+  //   }
+  // }, [pairedCards]);
 
   const handleClick = () => {
     addTotalClick();

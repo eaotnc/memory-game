@@ -78,9 +78,10 @@ interface GameControllerState {
   pairedCards: PairedCardType[];
   addTotalClick: () => void;
   clearTotalClick: () => void;
-  handleGameLogic: (key: number, id: number) => void;
+  handleGameLogic: (index: number, id: number) => void;
   setRestart: () => void;
   setGameStart: () => void;
+  removeFaceUpCards: (index: number) => void;
 }
 
 const useGameController = create<GameControllerState>((set) => ({
@@ -112,11 +113,17 @@ const useGameController = create<GameControllerState>((set) => ({
       pairedCards: [],
     }));
   },
+
   setGameStart: () => {
     set(() => ({
       isStart: true,
     }));
   },
+
+  removeFaceUpCards: (index: number) =>
+    set((state) => ({
+      faceUpCards: state.faceUpCards.filter((card) => card.index !== index),
+    })),
 }));
 
 export default useGameController;
