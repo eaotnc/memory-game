@@ -24,7 +24,8 @@ function App() {
       </div>
       {!isWin ? (
         <>
-          <WinContainer /> <LeaderBoard />
+          <WinContainer />
+          <LeaderBoard />
         </>
       ) : (
         <CardContainer />
