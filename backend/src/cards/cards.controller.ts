@@ -1,6 +1,6 @@
 import { Card } from '@prisma/client';
 import { CardsService } from './cards.service';
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
 @Controller('cards')
 export class CardsController {
@@ -15,7 +15,7 @@ export class CardsController {
   async findRandomCardByAmount(
     @Param('numberOfCard') numberOfCard: number,
   ): Promise<Card[]> {
-    const parsednumberOfCard = parseInt(numberOfCard.toString(), 10);
-    return this.cardsService.findByRandom(parsednumberOfCard);
+    const parsedNumberOfCard = parseInt(numberOfCard.toString(), 10);
+    return this.cardsService.findByRandom(parsedNumberOfCard);
   }
 }
