@@ -6,7 +6,7 @@ const WinContainer = () => {
   const { setRestart } = useGameController();
   return (
     <div className="win-container">
-      <img src={crown} />
+      <img className="w-40" src={crown} />
       <h1>YOU WIN!</h1>
       <button onClick={setRestart}>Play Again</button>
     </div>
