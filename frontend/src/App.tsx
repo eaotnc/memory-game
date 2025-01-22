@@ -3,6 +3,7 @@ import "./App.css";
 import CardContainer from "./components/CardContainer";
 import Timer from "./components/Timer";
 import useGameController from "./store/useGameController";
+import WinContainer from "./components/WinContainer";
 
 function App() {
   const { totalClicks, setRestart, pairedCards, isWin, setWinGame } =
@@ -20,12 +21,8 @@ function App() {
       <div className="text-md flex justify-around">
         Total Clicks: {totalClicks} <Timer />
       </div>
-      <>
-        {pairedCards.length}
-        {pairedCards.length === 16 ? "win" : "no"}
-      </>
-      {isWin ? <div>Win</div> : <CardContainer />}
-      <button onClick={setRestart}>Restart</button>
+      {isWin ? <WinContainer /> : <CardContainer />}
+      {isWin ? null : <button onClick={setRestart}>Restart</button>}
     </>
   );
 }
