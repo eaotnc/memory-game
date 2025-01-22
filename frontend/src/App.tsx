@@ -16,14 +16,18 @@ function App() {
   }, [pairedCards]);
 
   return (
-    <>
-      <div className="text-2xl ">Memory Matching Game</div>
+    <div className="app">
+      <div className="header">Memory Matching Game</div>
       <div className="text-md flex justify-around">
         Total Clicks: {totalClicks} <Timer />
       </div>
       {isWin ? <WinContainer /> : <CardContainer />}
-      {isWin ? null : <button onClick={setRestart}>Restart</button>}
-    </>
+      {isWin ? null : (
+        <button className="mt-0 mb-0 m-auto" onClick={setRestart}>
+          Restart
+        </button>
+      )}
+    </div>
   );
 }
 
