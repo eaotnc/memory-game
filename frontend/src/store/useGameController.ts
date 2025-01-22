@@ -35,7 +35,7 @@ interface PairedCardType {
 }
 
 interface HandleGameLogicReducerType {
-  state: GameInfoState;
+  state: GameControllerState;
   index: number;
   id: number;
 }
@@ -70,7 +70,8 @@ const handleGameLogicReducer = ({
   }
 };
 
-interface GameInfoState {
+interface GameControllerState {
+  isStart: boolean;
   cards: CardType[];
   totalClicks: number;
   faceUpCards: FaceUpCardType[];
@@ -79,9 +80,11 @@ interface GameInfoState {
   clearTotalClick: () => void;
   handleGameLogic: (key: number, id: number) => void;
   setRestart: () => void;
+  setGameStart: () => void;
 }
 
-const useGameController = create<GameInfoState>((set) => ({
+const useGameController = create<GameControllerState>((set) => ({
+  isStart: false,
   cards: cards,
   totalClicks: 0,
   faceUpCards: [],
@@ -103,9 +106,15 @@ const useGameController = create<GameInfoState>((set) => ({
 
   setRestart: () => {
     set(() => ({
+      isStart: false,
       totalClicks: 0,
       faceUpCards: [],
       pairedCards: [],
+    }));
+  },
+  setGameStart: () => {
+    set(() => ({
+      isStart: true,
     }));
   },
 }));

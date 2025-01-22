@@ -1,6 +1,6 @@
 import "./CardContainer.css";
 import Card from "../Card";
-import useGameController from "../../store/gameInfo";
+import useGameController from "../../store/useGameController";
 
 const CardContainer = () => {
   const { cards } = useGameController();
