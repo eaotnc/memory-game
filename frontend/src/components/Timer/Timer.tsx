@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useGameController from "../../store/useGameController";
 const Timer = () => {
-  const [time, setTime] = useState(0);
-  const { isStart } = useGameController();
+  const { isStart, addTime, playingTimeInSeconds } = useGameController();
 
   useEffect(() => {
     let interval: number | undefined;
     if (isStart) {
       interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
+        addTime();
       }, 1000);
     } else {
       clearInterval(interval);
@@ -26,6 +25,6 @@ const Timer = () => {
     )}`;
   };
 
-  return <div>Time: {formatTime(time)}</div>;
+  return <div>Time: {formatTime(playingTimeInSeconds)}</div>;
 };
 export default Timer;

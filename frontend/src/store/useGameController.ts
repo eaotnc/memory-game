@@ -46,6 +46,7 @@ const handleGameLogicReducer = ({
   id,
 }: HandleGameLogicReducerType) => {
   const { faceUpCards } = state;
+
   switch (faceUpCards.length) {
     case 0:
       return {
@@ -71,7 +72,9 @@ const handleGameLogicReducer = ({
 };
 
 interface GameControllerState {
+  isWin: boolean;
   isStart: boolean;
+  playingTimeInSeconds: number;
   cards: CardType[];
   totalClicks: number;
   faceUpCards: FaceUpCardType[];
@@ -81,11 +84,16 @@ interface GameControllerState {
   handleGameLogic: (index: number, id: number) => void;
   setRestart: () => void;
   setGameStart: () => void;
+  setGameEnd: () => void;
+  setWinGame: () => void;
+  addTime: () => void;
   removeFaceUpCards: (index: number) => void;
 }
 
 const useGameController = create<GameControllerState>((set) => ({
+  isWin: false,
   isStart: false,
+  playingTimeInSeconds: 0,
   cards: cards,
   totalClicks: 0,
   faceUpCards: [],
@@ -107,6 +115,8 @@ const useGameController = create<GameControllerState>((set) => ({
 
   setRestart: () => {
     set(() => ({
+      isWin: false,
+      playingTimeInSeconds: 0,
       isStart: false,
       totalClicks: 0,
       faceUpCards: [],
@@ -117,6 +127,25 @@ const useGameController = create<GameControllerState>((set) => ({
   setGameStart: () => {
     set(() => ({
       isStart: true,
+    }));
+  },
+
+  setGameEnd: () => {
+    set(() => ({
+      isStart: false,
+    }));
+  },
+
+  setWinGame: () => {
+    set(() => ({
+      isWin: true,
+      isStart: false,
+    }));
+  },
+
+  addTime: () => {
+    set((state) => ({
+      playingTimeInSeconds: state.playingTimeInSeconds + 1,
     }));
   },
 

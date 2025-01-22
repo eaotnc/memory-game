@@ -38,14 +38,6 @@ const Card = ({ id, imageUrl, index }: CardProps) => {
     }
   }, [faceUpCards]);
 
-  // useEffect(() => {
-  //   const isCardPaired = pairedCards.some((card) => card.index === index);
-  //   setIsCorrect(isCardPaired);
-  //   if (isCardPaired) {
-  //     setIsFlipped(true);
-  //   }
-  // }, [pairedCards]);
-
   const handleClick = () => {
     addTotalClick();
     setGameStart();
