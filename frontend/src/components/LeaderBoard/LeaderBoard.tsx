@@ -1,3 +1,4 @@
+import { formatTimeToMinute } from "../../helpers";
 import { useGameData } from "../../store/useGameData";
 import "./LeaderBoard.css";
 
@@ -32,7 +33,7 @@ const LeaderBoard = () => {
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{score.name}</td>
-              <td>{score.timesInSeconds}</td>
+              <td>{formatTimeToMinute(score.timesInSeconds)}</td>
               <td>{score.clicks}</td>
             </tr>
           ))}
