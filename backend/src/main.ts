@@ -3,11 +3,12 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
   app.setGlobalPrefix('api');
+
   const config = new DocumentBuilder()
-    .setTitle('Median')
-    .setDescription('The Median API description')
+    .setTitle('Memory Matching Game API')
+    .setDescription('The Memory Matching Game API description')
     .setVersion('0.1')
     .build();
 
