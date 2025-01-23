@@ -22,21 +22,27 @@ const Card = ({ id, imageUrl, index }: CardProps) => {
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
 
   useEffect(() => {
+    //INFO: Check if the card is face up or paired
     const isCardFaceUp = faceUpCards.some((card) => card.index === index);
     const isCardPaired = pairedCards.some((card) => card.index === index);
     setIsCorrect(isCardPaired);
-
     if (isCardFaceUp || isCardPaired) {
       setIsFlipped(true);
-      if (isCardFaceUp && !isCorrect) {
-        setTimeout(() => {
-          removeFaceUpCards(index);
-        }, 3500);
-      }
     } else {
       setIsFlipped(false);
     }
   }, [faceUpCards, pairedCards]);
+
+  useEffect(() => {
+    //INFO: If the card is not paired, flip it back after 2 seconds
+    if (faceUpCards.length > 0) {
+      const timer = setTimeout(() => {
+        faceUpCards.forEach((card) => removeFaceUpCards(card.index));
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [faceUpCards, removeFaceUpCards]);
 
   const handleClick = () => {
     addTotalClick();

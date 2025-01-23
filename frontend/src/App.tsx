@@ -1,27 +1,28 @@
 import { useEffect } from "react";
-import "./App.css";
 import CardContainer from "./components/CardContainer";
-import Timer from "./components/Timer";
 import useGameController from "./store/useGameController";
 import WinContainer from "./components/WinContainer";
 import LeaderBoard from "./components/LeaderBoard/LeaderBoard";
 import { useGameData } from "./store/useGameData";
 
+import "./App.css";
+
 function App() {
   const getCardsData = useGameData();
-  const { totalClicks, setRestart, pairedCards, isWin, setWinGame } =
-    useGameController();
+  const { setRestart, pairedCards, isWin, setWinGame } = useGameController();
 
   useEffect(() => {
+    //INFO: Fetch cards and scores when the app is loaded
     getCardsData.fetchCards();
     getCardsData.fetchScores();
   }, []);
 
   useEffect(() => {
+    //INFO: Check if all cards are paired and delay 0.5 second before showing the win screen
     if (pairedCards.length === 16) {
       setTimeout(() => {
         setWinGame();
-      }, 1000);
+      }, 500);
     }
   }, [pairedCards]);
 
@@ -59,9 +60,7 @@ function App() {
   return (
     <div className="app">
       <div className="header">Memory Matching Game</div>
-      <div className="text-md flex justify-around">
-        Total Clicks: {totalClicks} <Timer />
-      </div>
+
       {renderGame()}
     </div>
   );

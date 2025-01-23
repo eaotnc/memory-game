@@ -3,6 +3,7 @@ import crown from "../../assets/crown.svg";
 import useGameController from "../../store/useGameController";
 import { FormEvent } from "react";
 import { useGameData } from "../../store/useGameData";
+import Timer from "../Timer";
 
 const WinContainer = () => {
   const { setRestart, totalClicks, playingTimeInSeconds } = useGameController();
@@ -34,11 +35,15 @@ const WinContainer = () => {
 
       <>
         {renderSubmitLoading()}
-        <div className="pt-8">Submit Your Score</div>
+        <div className="pt-8 text-xl font-bold">Submit Your Score</div>
+
         <form onSubmit={(e) => handleSubmit(e)}>
           <input name="userName" placeholder="Enter your name" />
           <button>Submit</button>
         </form>
+        <div className="text-md flex justify-around">
+          Total Clicks: {totalClicks} <Timer />
+        </div>
       </>
       <button className="mt-5" onClick={setRestart}>
         Play Again

@@ -10,6 +10,7 @@ interface ScoreType {
   name: string;
   clicks: number;
   timesInSeconds: number;
+  isCurrentPlayer: boolean;
 }
 interface SubmitUserScoreType {
   name: string;

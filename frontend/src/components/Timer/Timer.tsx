@@ -17,6 +17,8 @@ const Timer = () => {
     return () => clearInterval(interval);
   }, [isStart]);
 
-  return <div>Time: {formatTimeToMinute(playingTimeInSeconds)}</div>;
+  return (
+    <div className="ml-4">Time: {formatTimeToMinute(playingTimeInSeconds)}</div>
+  );
 };
 export default Timer;
