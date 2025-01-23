@@ -52,13 +52,15 @@ const initialState: Omit<
   errorData: null,
 };
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 export const useGameData = create<State>((set) => ({
   ...initialState,
 
   fetchCards: async () => {
     set({ loading: true });
     try {
-      const res = await axios.get("http://localhost:3000/api/cards");
+      const res = await axios.get(`${apiUrl}/cards`);
       set({ success: true, loading: false, cards: res.data });
     } catch (err) {
       console.error("Error in data fetch:", err);
@@ -69,7 +71,7 @@ export const useGameData = create<State>((set) => ({
   fetchScores: async () => {
     set({ loading: true });
     try {
-      const res = await axios.get("http://localhost:3000/api/scores");
+      const res = await axios.get(`${apiUrl}/scores`);
       const scoreSorted = sortScores(res.data).map((score: ScoreType) => ({
         ...score,
         isCurrentPlayer: false,
@@ -88,7 +90,7 @@ export const useGameData = create<State>((set) => ({
   }: SubmitUserScoreType) => {
     set({ loading: true });
     try {
-      await axios.post("http://localhost:3000/api/scores", {
+      await axios.post(`${apiUrl}/scores`, {
         name,
         clicks,
         timesInSeconds,
