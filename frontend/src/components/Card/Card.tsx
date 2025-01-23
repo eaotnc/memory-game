@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ReactCardFlip from "react-card-flip";
-import cardIcon from "../../assets/cardicon.svg";
+import cardIcon from "../../assets/cardIcon.svg";
 import useGameController from "../../store/useGameController";
 
 import "./Card.css";
