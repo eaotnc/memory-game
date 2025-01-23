@@ -10,7 +10,6 @@ COPY package*.json ./
 # Install dependencies
 RUN npm cache clean --force
 RUN npm install -g @nestjs/cli
-RUN npm install prisma --save-dev
 RUN npm install --legacy-peer-deps
 
 # Copy the rest of the application code
@@ -18,7 +17,6 @@ COPY . .
 
 # Generate Prisma Client code
 RUN npx prisma generate
-RUN npx prisma db push
 
 # Build the application
 RUN npm run build
