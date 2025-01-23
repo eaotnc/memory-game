@@ -67,16 +67,3 @@ input {
   background-color: #444444;
   color: #ffffff;
 }
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #bababa;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}

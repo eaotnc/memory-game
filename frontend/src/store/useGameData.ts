@@ -88,7 +88,6 @@ export const useGameData = create<State>((set) => ({
     clicks,
     timesInSeconds,
   }: SubmitUserScoreType) => {
-    set({ loading: true });
     try {
       await axios.post(`${apiUrl}/scores`, {
         name,
