@@ -64,7 +64,7 @@ export const useGameData = create<State>((set) => ({
       set({ success: true, loading: false, cards: res.data });
     } catch (err) {
       console.error("Error in data fetch:", err);
-      set({ error: true, loading: false, errorData: err.message });
+      set({ error: true, loading: false, errorData: (err as Error).message });
     }
   },
 
@@ -79,7 +79,7 @@ export const useGameData = create<State>((set) => ({
       set({ success: true, loading: false, scores: scoreSorted });
     } catch (err) {
       console.error("Error in data fetch:", err);
-      set({ error: true, loading: false, errorData: err.message });
+      set({ error: true, loading: false, errorData: (err as Error).message });
     }
   },
 
@@ -98,7 +98,7 @@ export const useGameData = create<State>((set) => ({
       set({ success: true, loading: false });
     } catch (err) {
       console.error("Error in data fetch:", err);
-      set({ error: true, loading: false, errorData: err.message });
+      set({ error: true, loading: false, errorData: (err as Error).message });
     }
   },
 
