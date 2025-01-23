@@ -16,7 +16,7 @@ const LeaderBoard = () => {
 
   return (
     <div className="leaderboard">
-      <div className="text-2xl">LeaderBoard</div>
+      <div className="text-2xl m-4">Leaderboard</div>
       <table className="table-auto">
         <thead>
           <tr>

@@ -55,7 +55,6 @@ function App() {
       return (
         <>
           <WinContainer />
-          <LeaderBoard />
         </>
       );
     } else {
@@ -74,6 +73,7 @@ function App() {
     <div className="app">
       <div className="header">Memory Matching Game</div>
       {renderGame()}
+      <LeaderBoard />
     </div>
   );
 }

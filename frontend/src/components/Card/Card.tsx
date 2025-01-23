@@ -3,6 +3,8 @@ import ReactCardFlip from "react-card-flip";
 import cardIcon from "../../assets/cardicon.svg";
 import useGameController from "../../store/useGameController";
 
+import "./Card.css";
+
 interface CardProps {
   id: number;
   index: number;
