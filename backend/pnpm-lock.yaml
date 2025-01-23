@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@nestjs/cli':
+        specifier: ^10.0.0
+        version: 10.4.9
       '@nestjs/common':
         specifier: ^10.0.0
         version: 10.4.15(reflect-metadata@0.2.2)(rxjs@7.8.1)
@@ -33,9 +36,6 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1(express@4.21.2)
     devDependencies:
-      '@nestjs/cli':
-        specifier: ^10.0.0
-        version: 10.4.9
       '@nestjs/schematics':
         specifier: ^10.0.0
         version: 10.2.3(chokidar@3.6.0)(typescript@5.7.3)
