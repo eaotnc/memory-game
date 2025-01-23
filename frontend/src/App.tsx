@@ -5,10 +5,10 @@ import Timer from "./components/Timer";
 import useGameController from "./store/useGameController";
 import WinContainer from "./components/WinContainer";
 import LeaderBoard from "./components/LeaderBoard/LeaderBoard";
-import { useCard } from "./store/useCards";
+import { useGameData } from "./store/useGameData";
 
 function App() {
-  const getCardsData = useCard();
+  const getCardsData = useGameData();
   const { totalClicks, setRestart, pairedCards, isWin, setWinGame } =
     useGameController();
 
@@ -18,7 +18,9 @@ function App() {
 
   useEffect(() => {
     if (pairedCards.length === 16) {
-      setWinGame();
+      setTimeout(() => {
+        setWinGame();
+      }, 1000);
     }
   }, [pairedCards]);
 
@@ -57,7 +59,6 @@ function App() {
       <div className="text-md flex justify-around">
         Total Clicks: {totalClicks} <Timer />
       </div>
-
       {renderGame()}
     </div>
   );

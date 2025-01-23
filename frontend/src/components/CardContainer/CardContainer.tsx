@@ -1,9 +1,9 @@
 import "./CardContainer.css";
 import Card from "../Card";
-import { useCard } from "../../store/useCards";
+import { useGameData } from "../../store/useGameData";
 
 const CardContainer = () => {
-  const { cards } = useCard();
+  const { cards } = useGameData();
 
   return (
     <>

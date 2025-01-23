@@ -23,7 +23,7 @@ const initialState: Omit<State, "fetchCards"> = {
   errorData: null,
 };
 
-export const useCard = create<State>((set) => ({
+export const useGameData = create<State>((set) => ({
   ...initialState,
 
   fetchCards: async () => {
