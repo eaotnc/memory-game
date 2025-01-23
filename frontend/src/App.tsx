@@ -14,6 +14,7 @@ function App() {
 
   useEffect(() => {
     getCardsData.fetchCards();
+    getCardsData.fetchScores();
   }, []);
 
   useEffect(() => {
@@ -30,10 +31,12 @@ function App() {
   };
 
   const renderGame = () => {
-    if (getCardsData.loading) {
+    const { loading, error, errorData } = getCardsData;
+
+    if (loading) {
       return <p>Loading...</p>;
-    } else if (getCardsData.error) {
-      return <p>Error fetching data: {getCardsData.errorData}</p>;
+    } else if (error) {
+      return <p>Error fetching data: {errorData}</p>;
     } else if (isWin) {
       return (
         <>

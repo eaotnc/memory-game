@@ -1,6 +1,18 @@
+import { useGameData } from "../../store/useGameData";
 import "./LeaderBoard.css";
 
 const LeaderBoard = () => {
+  const gameData = useGameData();
+  const { loading, error, errorData, scores } = gameData;
+
+  const renderLoading = () => {
+    if (loading) {
+      return <p>Loading...</p>;
+    } else if (error) {
+      return <p>Error fetching data: {errorData}</p>;
+    }
+  };
+
   return (
     <div className="leaderboard">
       <div className="text-2xl">LeaderBoard</div>
@@ -15,36 +27,15 @@ const LeaderBoard = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Player 1</td>
-            <td>00:00</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Player 2</td>
-            <td>00:00</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Player 3</td>
-            <td>00:00</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Player 4</td>
-            <td>00:00</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Player 5</td>
-            <td>00:00</td>
-            <td>0</td>
-          </tr>
+          {renderLoading()}
+          {scores?.map((score, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{score.name}</td>
+              <td>{score.timesInSeconds}</td>
+              <td>{score.clicks}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
