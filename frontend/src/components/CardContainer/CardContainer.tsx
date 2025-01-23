@@ -14,7 +14,7 @@ const CardContainer = () => {
       <div className="text-md flex justify-around">
         Total Clicks: {totalClicks} <Timer />
       </div>
-      <div className="card-container" style={{ columns: 4 }}>
+      <div className="card-container">
         {!cards ? (
           <p>Loading...</p>
         ) : (

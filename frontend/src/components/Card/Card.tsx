@@ -54,8 +54,8 @@ const Card = ({ id, imageUrl, index }: CardProps) => {
   return (
     <div key={index}>
       <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-        <div className="card flex justify-center" onClick={() => handleClick()}>
-          <div className="card-image flex justify-center items-center">
+        <div className="card" onClick={() => handleClick()}>
+          <div className="card-image">
             <img className="w-8 rounded-md" src={cardIcon} />
           </div>
         </div>

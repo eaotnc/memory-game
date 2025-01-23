@@ -4,9 +4,7 @@
   max-width: 450px;
   border-radius: 20px;
   border: 1px solid #f5f5dc;
-  justify-content: center;
-  page-break-inside: avoid; /* Theoretically FF 20+ */
-  break-inside: avoid-column; /* Chrome, Safari, IE 11 */
+  column-count: 4;
 }
 
 @media screen and (max-width: 430px) {
