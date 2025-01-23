@@ -1,29 +1,5 @@
 import { create } from "zustand";
 
-const cards = [
-  { id: 2, imageUrl: "https://picsum.photos/id/238/200/300" },
-  { id: 8, imageUrl: "https://picsum.photos/id/244/200/300" },
-  { id: 1, imageUrl: "https://picsum.photos/id/237/200/300" },
-  { id: 2, imageUrl: "https://picsum.photos/id/238/200/300" },
-  { id: 3, imageUrl: "https://picsum.photos/id/239/200/300" },
-  { id: 3, imageUrl: "https://picsum.photos/id/239/200/300" },
-  { id: 1, imageUrl: "https://picsum.photos/id/237/200/300" },
-  { id: 4, imageUrl: "https://picsum.photos/id/240/200/300" },
-  { id: 5, imageUrl: "https://picsum.photos/id/241/200/300" },
-  { id: 4, imageUrl: "https://picsum.photos/id/240/200/300" },
-  { id: 6, imageUrl: "https://picsum.photos/id/242/200/300" },
-  { id: 6, imageUrl: "https://picsum.photos/id/242/200/300" },
-  { id: 7, imageUrl: "https://picsum.photos/id/243/200/300" },
-  { id: 5, imageUrl: "https://picsum.photos/id/241/200/300" },
-  { id: 8, imageUrl: "https://picsum.photos/id/244/200/300" },
-  { id: 7, imageUrl: "https://picsum.photos/id/243/200/300" },
-];
-
-interface CardType {
-  id: number;
-  imageUrl: string;
-}
-
 interface FaceUpCardType {
   index: number;
   id: number;
@@ -75,7 +51,6 @@ interface GameControllerState {
   isWin: boolean;
   isStart: boolean;
   playingTimeInSeconds: number;
-  cards: CardType[];
   totalClicks: number;
   faceUpCards: FaceUpCardType[];
   pairedCards: PairedCardType[];
@@ -90,14 +65,17 @@ interface GameControllerState {
   removeFaceUpCards: (index: number) => void;
 }
 
-const useGameController = create<GameControllerState>((set) => ({
+const initialState = {
   isWin: false,
   isStart: false,
   playingTimeInSeconds: 0,
-  cards: cards,
   totalClicks: 0,
   faceUpCards: [],
   pairedCards: [],
+};
+
+const useGameController = create<GameControllerState>((set) => ({
+  ...initialState,
 
   addTotalClick: () =>
     set((state) => ({
@@ -115,12 +93,7 @@ const useGameController = create<GameControllerState>((set) => ({
 
   setRestart: () => {
     set(() => ({
-      isWin: false,
-      playingTimeInSeconds: 0,
-      isStart: false,
-      totalClicks: 0,
-      faceUpCards: [],
-      pairedCards: [],
+      ...initialState,
     }));
   },
 
