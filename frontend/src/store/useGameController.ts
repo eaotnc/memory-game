@@ -66,7 +66,7 @@ interface GameControllerState {
 }
 
 const initialState = {
-  isWin: true,
+  isWin: false,
   isStart: false,
   playingTimeInSeconds: 0,
   totalClicks: 0,

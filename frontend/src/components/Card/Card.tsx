@@ -31,7 +31,7 @@ const Card = ({ id, imageUrl, index }: CardProps) => {
       if (isCardFaceUp && !isCorrect) {
         setTimeout(() => {
           removeFaceUpCards(index);
-        }, 3000);
+        }, 3500);
       }
     } else {
       setIsFlipped(false);

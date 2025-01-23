@@ -1,15 +1,30 @@
 import "./WinContainer.css";
 import crown from "../../assets/crown.svg";
 import useGameController from "../../store/useGameController";
-import { FormEvent, useState } from "react";
+import { FormEvent } from "react";
+import { useGameData } from "../../store/useGameData";
 
 const WinContainer = () => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const { setRestart } = useGameController();
+  const { setRestart, totalClicks, playingTimeInSeconds } = useGameController();
+  const gameData = useGameData();
+  const { loading, error, errorData } = gameData;
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    await gameData.submitUserScore({
+      name: e.currentTarget.userName.value,
+      clicks: totalClicks,
+      timesInSeconds: playingTimeInSeconds,
+    });
+    gameData.fetchScores();
+  };
+
+  const renderSubmitLoading = () => {
+    if (loading) {
+      return <p>Loading...</p>;
+    } else if (error) {
+      return <p>Error fetching data: {errorData}</p>;
+    }
   };
 
   return (
@@ -17,19 +32,17 @@ const WinContainer = () => {
       <img className="w-40" src={crown} />
       <h1>YOU WIN!</h1>
 
-      {isSubmitted ? (
-        <button className="pt-5" onClick={setRestart}>
-          Play Again
-        </button>
-      ) : (
-        <>
-          <div className="pt-8">Submit Your Score</div>
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <input placeholder="Enter your name" />
-            <button>Submit</button>
-          </form>
-        </>
-      )}
+      <>
+        {renderSubmitLoading()}
+        <div className="pt-8">Submit Your Score</div>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <input name="userName" placeholder="Enter your name" />
+          <button>Submit</button>
+        </form>
+      </>
+      <button className="mt-5" onClick={setRestart}>
+        Play Again
+      </button>
     </div>
   );
 };

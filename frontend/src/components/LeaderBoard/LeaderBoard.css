@@ -5,6 +5,8 @@
   justify-content: center;
   margin-top: 20px;
 }
+
+.leaderboard,
 th,
 td {
   padding: 0 10px;

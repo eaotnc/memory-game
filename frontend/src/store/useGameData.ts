@@ -11,7 +11,11 @@ interface ScoreType {
   clicks: number;
   timesInSeconds: number;
 }
-
+interface SubmitUserScoreType {
+  name: string;
+  clicks: number;
+  timesInSeconds: number;
+}
 interface State {
   loading: boolean;
   success: boolean;
@@ -21,9 +25,13 @@ interface State {
   errorData: string | null;
   fetchCards: () => Promise<void>;
   fetchScores: () => Promise<void>;
+  submitUserScore: (data: SubmitUserScoreType) => Promise<void>;
 }
 
-const initialState: Omit<State, "fetchCards" | "fetchScores"> = {
+const initialState: Omit<
+  State,
+  "fetchCards" | "fetchScores" | "submitUserScore"
+> = {
   cards: null,
   scores: null,
   loading: false,
@@ -50,8 +58,31 @@ export const useGameData = create<State>((set) => ({
     set({ loading: true });
     try {
       const res = await axios.get("http://localhost:3000/api/scores");
-      console.log("🚀 ~ res:", res);
-      set({ success: true, loading: false, scores: res.data });
+      const sortedScores = res.data
+        .sort((a: ScoreType, b: ScoreType) => a.clicks - b.clicks)
+        .sort(
+          (a: ScoreType, b: ScoreType) => a.timesInSeconds - b.timesInSeconds
+        );
+      set({ success: true, loading: false, scores: sortedScores });
+    } catch (err) {
+      console.error("Error in data fetch:", err);
+      set({ error: true, loading: false, errorData: err.message });
+    }
+  },
+
+  submitUserScore: async ({
+    name,
+    clicks,
+    timesInSeconds,
+  }: SubmitUserScoreType) => {
+    set({ loading: true });
+    try {
+      await axios.post("http://localhost:3000/api/scores", {
+        name,
+        clicks,
+        timesInSeconds,
+      });
+      set({ success: true, loading: false });
     } catch (err) {
       console.error("Error in data fetch:", err);
       set({ error: true, loading: false, errorData: err.message });
