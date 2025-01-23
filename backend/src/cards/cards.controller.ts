@@ -1,6 +1,7 @@
 import { Card } from '@prisma/client';
 import { CardsService } from './cards.service';
 import { Controller, Get, Param } from '@nestjs/common';
+import { CONFIG } from 'src/config';
 
 @Controller('cards')
 export class CardsController {
@@ -8,7 +9,12 @@ export class CardsController {
 
   @Get('/')
   async findByRandomDefault(): Promise<Card[]> {
-    return this.cardsService.findByRandom(8);
+    const cards = await this.cardsService.findByRandom(
+      CONFIG.DEFAULT_NUMBER_OF_CARD,
+    );
+    const multipleCards = [...cards, ...cards];
+    const shuffledCards = multipleCards.sort(() => Math.random() - 0.5);
+    return shuffledCards;
   }
 
   @Get('/:numberOfCard')
@@ -16,6 +22,9 @@ export class CardsController {
     @Param('numberOfCard') numberOfCard: number,
   ): Promise<Card[]> {
     const parsedNumberOfCard = parseInt(numberOfCard.toString(), 10);
-    return this.cardsService.findByRandom(parsedNumberOfCard);
+    const cards = await this.cardsService.findByRandom(parsedNumberOfCard);
+    const multipleCards = [...cards, ...cards];
+    const shuffledCards = multipleCards.sort(() => Math.random() - 0.5);
+    return shuffledCards;
   }
 }

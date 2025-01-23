@@ -22,7 +22,7 @@ function App() {
       <div className="text-md flex justify-around">
         Total Clicks: {totalClicks} <Timer />
       </div>
-      {!isWin ? (
+      {isWin ? (
         <>
           <WinContainer />
           <LeaderBoard />
@@ -30,7 +30,7 @@ function App() {
       ) : (
         <CardContainer />
       )}
-      {!isWin ? null : (
+      {isWin ? null : (
         <button className="mt-0 mb-0 m-auto" onClick={setRestart}>
           Restart
         </button>
