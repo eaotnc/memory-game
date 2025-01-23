@@ -32,19 +32,15 @@ const WinContainer = () => {
     <div className="win-container">
       <img className="w-40" src={crown} />
       <h1>YOU WIN!</h1>
-
-      <>
-        {renderSubmitLoading()}
-        <div className="pt-8 text-xl font-bold">Submit Your Score</div>
-
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <input name="userName" placeholder="Enter your name" />
-          <button>Submit</button>
-        </form>
-        <div className="text-md flex justify-around">
-          Total Clicks: {totalClicks} <Timer />
-        </div>
-      </>
+      {renderSubmitLoading()}
+      <div className="pt-8 text-xl font-bold">Submit Your Score</div>
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <input name="userName" placeholder="Enter your name" />
+        <button>Submit</button>
+      </form>
+      <div className="text-md flex justify-around">
+        Total Clicks: {totalClicks} <Timer />
+      </div>
       <button className="mt-5" onClick={setRestart}>
         Play Again
       </button>

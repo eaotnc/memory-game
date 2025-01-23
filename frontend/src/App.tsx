@@ -60,7 +60,6 @@ function App() {
   return (
     <div className="app">
       <div className="header">Memory Matching Game</div>
-
       {renderGame()}
     </div>
   );

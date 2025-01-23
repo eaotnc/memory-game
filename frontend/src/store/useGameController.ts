@@ -65,7 +65,18 @@ interface GameControllerState {
   removeFaceUpCards: (index: number) => void;
 }
 
-const initialState = {
+const initialState: Omit<
+  GameControllerState,
+  | "addTotalClick"
+  | "clearTotalClick"
+  | "handleGameLogic"
+  | "setRestart"
+  | "setGameStart"
+  | "setGameEnd"
+  | "setWinGame"
+  | "addTime"
+  | "removeFaceUpCards"
+> = {
   isWin: false,
   isStart: false,
   playingTimeInSeconds: 0,
