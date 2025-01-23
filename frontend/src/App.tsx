@@ -8,10 +8,9 @@ import LeaderBoard from "./components/LeaderBoard/LeaderBoard";
 import { useCard } from "./store/useCards";
 
 function App() {
+  const getCardsData = useCard();
   const { totalClicks, setRestart, pairedCards, isWin, setWinGame } =
     useGameController();
-
-  const getCardsData = useCard();
 
   useEffect(() => {
     getCardsData.fetchCards();
@@ -28,6 +27,30 @@ function App() {
     setRestart();
   };
 
+  const renderGame = () => {
+    if (getCardsData.loading) {
+      return <p>Loading...</p>;
+    } else if (getCardsData.error) {
+      return <p>Error fetching data: {getCardsData.errorData}</p>;
+    } else if (isWin) {
+      return (
+        <>
+          <WinContainer />
+          <LeaderBoard />
+        </>
+      );
+    } else {
+      return (
+        <>
+          <CardContainer />
+          <button className="mt-0 mb-0 m-auto" onClick={handleRestart}>
+            Restart
+          </button>
+        </>
+      );
+    }
+  };
+
   return (
     <div className="app">
       <div className="header">Memory Matching Game</div>
@@ -35,23 +58,7 @@ function App() {
         Total Clicks: {totalClicks} <Timer />
       </div>
 
-      {getCardsData.loading ? (
-        <p>Loading...</p>
-      ) : getCardsData.error ? (
-        <p>Error fetching data: {getCardsData.errorData}</p>
-      ) : isWin ? (
-        <>
-          <WinContainer />
-          <LeaderBoard />
-        </>
-      ) : (
-        <CardContainer />
-      )}
-      {isWin ? null : (
-        <button className="mt-0 mb-0 m-auto" onClick={handleRestart}>
-          Restart
-        </button>
-      )}
+      {renderGame()}
     </div>
   );
 }

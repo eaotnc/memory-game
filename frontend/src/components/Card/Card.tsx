@@ -31,12 +31,12 @@ const Card = ({ id, imageUrl, index }: CardProps) => {
       if (isCardFaceUp && !isCorrect) {
         setTimeout(() => {
           removeFaceUpCards(index);
-        }, 2000);
+        }, 3000);
       }
     } else {
       setIsFlipped(false);
     }
-  }, [faceUpCards]);
+  }, [faceUpCards, pairedCards]);
 
   const handleClick = () => {
     addTotalClick();
