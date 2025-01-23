@@ -8,7 +8,7 @@ import Timer from "../Timer";
 const WinContainer = () => {
   const { setRestart, totalClicks, playingTimeInSeconds } = useGameController();
   const gameData = useGameData();
-  const { loading, error, errorData } = gameData;
+  const { error, errorData } = gameData;
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,9 +21,7 @@ const WinContainer = () => {
   };
 
   const renderSubmitLoading = () => {
-    if (loading) {
-      return <p>Loading...</p>;
-    } else if (error) {
+    if (error) {
       return <p>Error fetching data: {errorData}</p>;
     }
   };

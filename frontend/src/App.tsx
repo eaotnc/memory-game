@@ -41,15 +41,14 @@ function App() {
 
   const handleRestart = () => {
     gameData.fetchCards();
+    gameData.fetchScores();
     setRestart();
   };
 
   const renderGame = () => {
-    const { loading, error, errorData } = gameData;
+    const { error, errorData } = gameData;
 
-    if (loading) {
-      return <p>Loading...</p>;
-    } else if (error) {
+    if (error) {
       return <p>Error fetching data: {errorData}</p>;
     } else if (isWin) {
       return (
