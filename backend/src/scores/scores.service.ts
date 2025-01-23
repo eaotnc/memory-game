@@ -9,7 +9,7 @@ interface ScoreBoardCreate {
 }
 
 @Injectable()
-export class ScoreService {
+export class ScoresService {
   constructor(private prisma: PrismaService) {}
 
   findAll(): Promise<ScoreBoard[]> {
