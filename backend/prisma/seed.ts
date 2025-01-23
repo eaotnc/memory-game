@@ -23,9 +23,6 @@ async function main() {
         imageURL: 'https://picsum.photos/id/104/200/300',
       },
       {
-        imageURL: 'https://picsum.photos/id/105/200/300',
-      },
-      {
         imageURL: 'https://picsum.photos/id/106/200/300',
       },
       {

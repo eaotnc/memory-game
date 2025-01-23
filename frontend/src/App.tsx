@@ -8,18 +8,31 @@ import { useGameData } from "./store/useGameData";
 import "./App.css";
 
 function App() {
-  const getCardsData = useGameData();
-  const { setRestart, pairedCards, isWin, setWinGame } = useGameController();
+  const gameData = useGameData();
+  const {
+    pairedCards,
+    isWin,
+    totalClicks,
+    playingTimeInSeconds,
+    setWinGame,
+    setGameEnd,
+    setRestart,
+  } = useGameController();
 
   useEffect(() => {
     //INFO: Fetch cards and scores when the app is loaded
-    getCardsData.fetchCards();
-    getCardsData.fetchScores();
+    gameData.fetchCards();
+    gameData.fetchScores();
   }, []);
 
   useEffect(() => {
     //INFO: Check if all cards are paired and delay 0.5 second before showing the win screen
     if (pairedCards.length === 16) {
+      gameData.keptUserScore({
+        clicks: totalClicks,
+        timesInSeconds: playingTimeInSeconds,
+      });
+      setGameEnd();
       setTimeout(() => {
         setWinGame();
       }, 500);
@@ -27,12 +40,12 @@ function App() {
   }, [pairedCards]);
 
   const handleRestart = () => {
-    getCardsData.fetchCards();
+    gameData.fetchCards();
     setRestart();
   };
 
   const renderGame = () => {
-    const { loading, error, errorData } = getCardsData;
+    const { loading, error, errorData } = gameData;
 
     if (loading) {
       return <p>Loading...</p>;

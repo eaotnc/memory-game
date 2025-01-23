@@ -29,11 +29,16 @@ const LeaderBoard = () => {
         <tbody>
           {renderLoading()}
           {scores?.map((score, index) => (
-            <tr key={index}>
+            <tr
+              key={index}
+              className={
+                score.isCurrentPlayer ? "bg-gray-200 text-gray-700" : ""
+              }
+            >
               <td>{index + 1}</td>
               <td>{score.name}</td>
-              <td>{formatTimeToMinute(score.timesInSeconds)}</td>
               <td>{score.clicks}</td>
+              <td>{formatTimeToMinute(score.timesInSeconds)}</td>
             </tr>
           ))}
         </tbody>

@@ -6,7 +6,7 @@ interface CardType {
   imageURL: string;
 }
 interface ScoreType {
-  id: number;
+  id: string;
   name: string;
   clicks: number;
   timesInSeconds: number;
@@ -14,6 +14,11 @@ interface ScoreType {
 }
 interface SubmitUserScoreType {
   name: string;
+  clicks: number;
+  timesInSeconds: number;
+}
+
+interface KeptUserScoreType {
   clicks: number;
   timesInSeconds: number;
 }
@@ -27,11 +32,17 @@ interface State {
   fetchCards: () => Promise<void>;
   fetchScores: () => Promise<void>;
   submitUserScore: (data: SubmitUserScoreType) => Promise<void>;
+  keptUserScore: (data: KeptUserScoreType) => void;
 }
+
+const sortScores = (scores: ScoreType[]) =>
+  scores
+    .sort((a: ScoreType, b: ScoreType) => a.clicks - b.clicks)
+    .sort((a: ScoreType, b: ScoreType) => a.timesInSeconds - b.timesInSeconds);
 
 const initialState: Omit<
   State,
-  "fetchCards" | "fetchScores" | "submitUserScore"
+  "fetchCards" | "fetchScores" | "submitUserScore" | "keptUserScore"
 > = {
   cards: null,
   scores: null,
@@ -59,12 +70,11 @@ export const useGameData = create<State>((set) => ({
     set({ loading: true });
     try {
       const res = await axios.get("http://localhost:3000/api/scores");
-      const sortedScores = res.data
-        .sort((a: ScoreType, b: ScoreType) => a.clicks - b.clicks)
-        .sort(
-          (a: ScoreType, b: ScoreType) => a.timesInSeconds - b.timesInSeconds
-        );
-      set({ success: true, loading: false, scores: sortedScores });
+      const scoreSorted = sortScores(res.data).map((score: ScoreType) => ({
+        ...score,
+        isCurrentPlayer: false,
+      }));
+      set({ success: true, loading: false, scores: scoreSorted });
     } catch (err) {
       console.error("Error in data fetch:", err);
       set({ error: true, loading: false, errorData: err.message });
@@ -88,5 +98,20 @@ export const useGameData = create<State>((set) => ({
       console.error("Error in data fetch:", err);
       set({ error: true, loading: false, errorData: err.message });
     }
+  },
+
+  keptUserScore: ({ clicks, timesInSeconds }: KeptUserScoreType) => {
+    set((state) => ({
+      scores: sortScores([
+        ...state.scores!,
+        {
+          id: "player",
+          name: "Your",
+          clicks,
+          timesInSeconds,
+          isCurrentPlayer: true,
+        },
+      ]),
+    }));
   },
 }));
